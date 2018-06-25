@@ -145,12 +145,22 @@ public class login extends javax.swing.JFrame {
         dataUsername = txtUser.getText();
         dataPassword = txtpassword.getText();
         
-        String query = "SELECT password FROM `user` WHERE username=\"manajer\"";
+        String query = "SELECT password FROM `user` WHERE username=\""+dataUsername+"\"";
         try {
-            stmt = conn.createStatement();
+            stmt = (Statement)conn.createStatement();
             ResultSet hasil = stmt.executeQuery(query);
+            hasil.next();
+//            System.out.println(query);
             String pass_db = hasil.getString("password");
-            System.out.println(pass_db);
+            if(dataPassword.equals(pass_db)){
+                System.out.println("sama woy");
+                this.setVisible(false);
+                home pindah_ke_home = new home();
+                pindah_ke_home.setVisible(true);
+            }else{
+                System.out.println("salah");
+            }
+            //System.out.println(pass_db);
         } catch (Exception ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
