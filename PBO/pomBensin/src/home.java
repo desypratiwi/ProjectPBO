@@ -60,6 +60,11 @@ public class home extends javax.swing.JFrame {
         buttonPengisian.setText("PENGISIAN");
 
         buttonUbahData.setText("UBAH DATA");
+        buttonUbahData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUbahDataActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setText("Cancel");
 
@@ -100,6 +105,12 @@ public class home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonUbahDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahDataActionPerformed
+        // TODO add your handling code here:
+        ubahData ubah = new ubahData();
+        ubah.setVisible(true);
+    }//GEN-LAST:event_buttonUbahDataActionPerformed
 
     /**
      * @param args the command line arguments

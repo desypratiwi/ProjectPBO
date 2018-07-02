@@ -20,14 +20,7 @@ import java.util.logging.Logger;
  */
 public class login extends javax.swing.JFrame {
     
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/pombensin";
-    
-    static final String DB_USERNAME = "root";
-    static final String DB_PASSWORD = "";
-    
-    static Connection conn = null;
-    static Statement stmt = null;
+
 
     /**
      * Creates new form login
@@ -35,7 +28,7 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
         System.out.println("ini di kerjakan");
-        connection();
+        
     }
 
     /**
@@ -147,8 +140,8 @@ public class login extends javax.swing.JFrame {
         
         String query = "SELECT password FROM `user` WHERE username=\""+dataUsername+"\"";
         try {
-            stmt = (Statement)conn.createStatement();
-            ResultSet hasil = stmt.executeQuery(query);
+            Database.stmt = (Statement)Database.connection().createStatement();
+            ResultSet hasil = Database.stmt.executeQuery(query);
             hasil.next();
 //            System.out.println(query);
             String pass_db = hasil.getString("password");
@@ -201,23 +194,7 @@ public class login extends javax.swing.JFrame {
             }
         });
     }
-    
-    void connection(){
-        
-        try{
-            Class.forName(JDBC_DRIVER);
-            System.out.println("Connecting to database");
-            System.out.println("...");
-            conn = (Connection) DriverManager.getConnection(DB_URL, DB_USERNAME,DB_PASSWORD);
-            
-            if(conn != null){
-                System.out.println("SUKSES");
-            }
-            
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogin;

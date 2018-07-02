@@ -1,3 +1,11 @@
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +23,7 @@ public class ubahData extends javax.swing.JFrame {
      */
     public ubahData() {
         initComponents();
+        tampilkan_bensin();
     }
 
     /**
@@ -29,16 +38,16 @@ public class ubahData extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tabelbensin = new javax.swing.JTable();
+        createButton = new javax.swing.JButton();
+        dellButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel1.setText("UBAH DATA");
+        jLabel1.setText("LIST DATA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -47,7 +56,7 @@ public class ubahData extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(jLabel1)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -57,29 +66,36 @@ public class ubahData extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelbensin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "Bahan Bakar", "Harga per liter"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelbensin);
 
-        jButton1.setText("+");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createButton.setText("+");
+        createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("-");
+        dellButton.setText("-");
+        dellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dellButtonActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Edit");
+        editButton.setText("Edit");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Close");
 
@@ -90,11 +106,11 @@ public class ubahData extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(createButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(dellButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(editButton)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -107,9 +123,9 @@ public class ubahData extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
@@ -120,9 +136,78 @@ public class ubahData extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_createButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        // TODO add your handling code here:
+        String id;
+        int baris =-1;
+        baris = tabelbensin.getSelectedRow();
+        // Ambil id
+        id = (String) tabelbensin.getValueAt(baris, 0);
+        
+        String query = "SELECT * FROM `data_bensin` WHERE ID = \""+id+"\"";
+        try {
+            Statement stmt = Database.connection().createStatement();
+            ResultSet hasil = stmt.executeQuery(query);
+            hasil.next();
+            String nama = hasil.getString("nama bensin");
+            int harga = hasil.getInt("Harga per liter");
+            Bensin bensin = new Bensin(id, nama, harga);
+            Data_bensin.data_bensin = bensin;
+            
+            // pindah 
+            Data_bensin form = new Data_bensin();
+            form.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ubahData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_editButtonActionPerformed
+    public void tampilkan_bensin(){
+        DefaultTableModel tm = (DefaultTableModel) tabelbensin.getModel();
+        String query = "SELECT * FROM `data_bensin` ";
+        try {
+            Statement stmt = Database.connection().createStatement();
+            ResultSet hasil = stmt.executeQuery(query);
+             while (hasil.next()) {
+                String id = hasil.getString("ID");
+                String nama = hasil.getString("nama bensin");
+                int harga = hasil.getInt("Harga per liter");
+
+
+                String detail[] = {id + "", nama, harga + ""};
+                tm.addRow(detail);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ubahData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void dellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dellButtonActionPerformed
+        // TODO add your handling code here:
+        String id;
+        int baris =-1;
+        baris = tabelbensin.getSelectedRow();
+        id = (String) tabelbensin.getValueAt(baris, 0);
+        
+        String query = "DELETE FROM `data_bensin` WHERE ID = \""+id+"\"";
+        try {
+            Statement stmt = Database.connection().createStatement();
+            ResultSet hasil = stmt.executeQuery(query);
+            hasil.next();
+            String nama = hasil.getString("nama bensin");
+            int harga = hasil.getInt("Harga per liter");
+            //Bensin bensin = new Bensin(id, nama, harga);
+            //Data_bensin.data_bensin = bensin;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ubahData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_dellButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,13 +245,13 @@ public class ubahData extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton createButton;
+    private javax.swing.JButton dellButton;
+    private javax.swing.JButton editButton;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelbensin;
     // End of variables declaration//GEN-END:variables
 }
