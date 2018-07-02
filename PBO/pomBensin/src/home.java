@@ -32,6 +32,7 @@ public class home extends javax.swing.JFrame {
         buttonPengisian = new javax.swing.JButton();
         buttonUbahData = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        riwayatButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,8 +57,18 @@ public class home extends javax.swing.JFrame {
         );
 
         buttonPenjualan.setText("PENJUALAN");
+        buttonPenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPenjualanActionPerformed(evt);
+            }
+        });
 
         buttonPengisian.setText("PENGISIAN");
+        buttonPengisian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPengisianActionPerformed(evt);
+            }
+        });
 
         buttonUbahData.setText("UBAH DATA");
         buttonUbahData.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +77,19 @@ public class home extends javax.swing.JFrame {
             }
         });
 
-        buttonCancel.setText("Cancel");
+        buttonCancel.setText("Logout");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
+
+        riwayatButton.setText("RIWAYAT");
+        riwayatButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                riwayatButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,33 +97,37 @@ public class home extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(buttonPenjualan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(35, 70, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonCancel)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonPengisian)
-                        .addGap(33, 33, 33)
-                        .addComponent(buttonUbahData))
-                    .addComponent(buttonCancel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonPenjualan)
+                            .addComponent(riwayatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonPengisian)
+                            .addComponent(buttonUbahData))
+                        .addGap(77, 77, 77)))
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(buttonCancel)
-                        .addGap(23, 23, 23))
+                        .addComponent(buttonPengisian, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(buttonCancel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addComponent(buttonPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonPengisian, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonUbahData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(136, Short.MAX_VALUE))))
+                            .addComponent(riwayatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonUbahData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -111,6 +138,29 @@ public class home extends javax.swing.JFrame {
         ubahData ubah = new ubahData();
         ubah.setVisible(true);
     }//GEN-LAST:event_buttonUbahDataActionPerformed
+
+    private void buttonPengisianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPengisianActionPerformed
+        // TODO add your handling code here:
+        pengisian isi = new pengisian();
+        isi.setVisible(true);
+    }//GEN-LAST:event_buttonPengisianActionPerformed
+
+    private void riwayatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayatButtonActionPerformed
+        // TODO add your handling code here:
+        riwayat catatan = new riwayat();
+        catatan.setVisible(true);
+    }//GEN-LAST:event_riwayatButtonActionPerformed
+
+    private void buttonPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPenjualanActionPerformed
+        // TODO add your handling code here:
+        penjualan jual = new penjualan();
+        jual.setVisible(true);
+    }//GEN-LAST:event_buttonPenjualanActionPerformed
+
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,5 +204,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JButton buttonUbahData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton riwayatButton;
     // End of variables declaration//GEN-END:variables
 }
